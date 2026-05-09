@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoluntYouth - Find Volunteer Opportunities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f7f4ee;
+            color: #333;
+        }
+
+        header {
+            background: #1c3a2e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .header-content span {
+            font-size: 28px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        h1 .highlight {
+            color: #f4c842;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #8baf97;
+            margin-top: 4px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        select, input[type="range"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            cursor: pointer;
+            background: white;
+        }
+
+        input[type="range"] {
+            width: 150px;
+            padding: 0;
+        }
+
+        .distance-display {
+            font-size: 14px;
+            font-weight: bold;
+            color: #1c3a2e;
+            min-width: 40px;
+        }
+
+        .result-count {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .opportunities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .opportunity {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .opportunity:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            border-color: #1c3a2e;
+            transform: translateY(-2px);
+        }
+
+        .opportunity h3 {
+            color: #1c3a2e;
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 1.3;
+        }
+
+        .opportunity-org {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .opportunity p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .meta {
+            display: flex;
+            gap: 6px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #f7f4ee;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .badge.source-volunteermatch {
+            background: #e8f4f1;
+            color: #1c3a2e;
+        }
+
+        .badge.source-local {
+            background: #fdf3cd;
+            color: #7a5c00;
+        }
+
+        .badge.source-meetup {
+            background: #f1e3ff;
+            color: #5a1b7f;
+        }
+
+        .button {
+            display: inline-block;
+            background: #1c3a2e;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+            text-align: center;
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        .button:hover {
+            background: #0f2820;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+
+        .error {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .empty h2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .empty p {
+            font-size: 13px;
+        }
+
+        .source-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .filters {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            select, input[type="range"] {
+                width: 100%;
+            }
+
+            .opportunities {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <span>🌱</span>
+        <h1>Volunt<span class="highlight">youth</span></h1>
+    </div>
+    <p class="subtitle">Find volunteer opportunities near you</p>
+</header>
+
+<div class="container">
+    <div class="filters">
+        <div class="filter-group">
+            <label for="distance-filter">Distance</label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <input 
+                    type="range" 
+                    id="distance-filter" 
+                    min="5" 
+                    max="50" 
+                    value="15"
+                >
+                <span class="distance-display" id="distance-value">15 mi</span>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <label for="cause-filter">Cause</label>
+            <select id="cause-filter">
+                <option value="">All Causes</option>
+                <option value="animals">🐾 Animals</option>
+                <option value="environment">🌿 Environment</option>
+                <option value="education">📚 Education</option>
+                <option value="food">🥕 Food</option>
+                <option value="community">💙 Community</option>
+                <option value="elderly">👴 Elderly Care</option>
+            </select>
+        </div>
+
+        <div class="filter-group" style="flex: 1; min-width: 150px;">
+            <label for="type-filter">Type</label>
+            <select id="type-filter">
+                <option value="">All Types</option>
+                <option value="one-time">One-Time</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="virtual">Virtual</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="error-container"></div>
+    <div class="result-count" id="result-count"></div>
+    <div id="opportunities" class="opportunities">
+        <div class="loading">Loading opportunities...</div>
+    </div>
+</div>
+
+<script>
+// Sample data (will be replaced with real JSON from scraper)
+const sampleData = {
+    "last_updated": "2024-01-15T09:00:00",
+    "opportunities": [
+        {
+            "title": "Dog Walking at Animal Shelter",
+            "org_name": "Paws & Care Animal Shelter",
+            "description": "Help rescue dogs get exercise and socialization. Flexible hours, all skill levels welcome.",
+            "source_url": "https://www.volunteermatch.org/search/opp/...",
+            "source": "volunteermatch",
+            "cause": "animals",
+            "type": "ongoing",
+            "distance": 2.3
+        },
+        {
+            "title": "Trail Cleanup at Riverside Park",
+            "org_name": "Springfield Parks & Recreation",
+            "description": "Join us for a 4-hour trail cleanup on Saturday mornings. All tools and supplies provided.",
+            "source_url": "https://www.springfield.gov/parks/volunteer",
+            "source": "local",
+            "cause": "environment",
+            "type": "one-time",
+            "distance": 4.1
+        },
+        {
+            "title": "Tech Tutor for Seniors",
+            "org_name": "Digital Inclusion Initiative",
+            "description": "Teach seniors how to use email, video calls, and social media. Virtual, 1-2 hours per week.",
+            "source_url": "https://www.volunteermatch.org/search/opp/...",
+            "source": "volunteermatch",
+            "cause": "education",
+            "type": "virtual",
+            "distance": 3.5
+        },
+        {
+            "title": "Library Reading Buddy Program",
+            "org_name": "Springfield Public Library",
+            "description": "Read with elementary kids once a week. Help build confidence and love of reading.",
+            "source_url": "https://www.springfield-library.org/volunteer",
+            "source": "local",
+            "cause": "education",
+            "type": "ongoing",
+            "distance": 1.8
+        },
+        {
+            "title": "Food Bank Sorting",
+            "org_name": "City Harvest Food Bank",
+            "description": "Sort and pack donations for families in need. 3-hour shifts available, groups welcome!",
+            "source_url": "https://www.volunteermatch.org/search/opp/...",
+            "source": "volunteermatch",
+            "cause": "food",
+            "type": "one-time",
+            "distance": 5.2
+        },
+        {
+            "title": "Senior Companion Program",
+            "org_name": "Community Care Services",
+            "description": "Visit with seniors, play games, help with activities. Makes a huge difference in their lives.",
+            "source_url": "https://www.volunteermatch.org/search/opp/...",
+            "source": "volunteermatch",
+            "cause": "elderly",
+            "type": "ongoing",
+            "distance": 6.0
+        },
+        {
+            "title": "Beach Cleanup & Ocean Advocacy",
+            "org_name": "Ocean Guardians",
+            "description": "Collect trash and learn about marine conservation. Virtual workshop + in-person cleanup.",
+            "source_url": "https://www.meetup.com/events/...",
+            "source": "meetup",
+            "cause": "environment",
+            "type": "one-time",
+            "distance": 8.5
+        },
+        {
+            "title": "Youth After-School Mentor",
+            "org_name": "Big Brothers Big Sisters",
+            "description": "Mentor a young person weekly. Help them with homework, build confidence, be a friend.",
+            "source_url": "https://www.volunteermatch.org/search/opp/...",
+            "source": "volunteermatch",
+            "cause": "community",
+            "type": "ongoing",
+            "distance": 3.2
+        }
+    ]
+};
+
+let allOpportunities = [];
+let userLocation = null;
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    loadOpportunities();
+    setupFilters();
+});
+
+// Load opportunities
+function loadOpportunities() {
+    try {
+        // In production, this would load from opportunities.json
+        // For now, use sample data
+        allOpportunities = sampleData.opportunities || [];
+        console.log(`✓ Loaded ${allOpportunities.length} opportunities`);
+        renderOpportunities();
+    } catch (error) {
+        console.error('Error loading opportunities:', error);
+        showError('Could not load opportunities. Please refresh the page.');
+    }
+}
+
+// Render opportunities
+function renderOpportunities() {
+    const causeFilter = document.getElementById('cause-filter').value;
+    const typeFilter = document.getElementById('type-filter').value;
+    const distanceFilter = parseInt(document.getElementById('distance-filter').value);
+
+    // Filter
+    let filtered = allOpportunities.filter(opp => {
+        if (causeFilter && opp.cause !== causeFilter) return false;
+        if (typeFilter && opp.type !== typeFilter) return false;
+        if (opp.distance > distanceFilter) return false;
+        return true;
+    });
+
+    // Sort by distance
+    filtered.sort((a, b) => a.distance - b.distance);
+
+    // Update result count
+    document.getElementById('result-count').textContent = 
+        `${filtered.length} opportunit${filtered.length !== 1 ? 'ies' : 'y'} found`;
+
+    const container = document.getElementById('opportunities');
+    
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">🔍</div>
+                <h2>No opportunities found</h2>
+                <p>Try adjusting your filters to see more options</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map(opp => `
+        <div class="opportunity">
+            <h3>${opp.title}</h3>
+            <div class="opportunity-org">${opp.org_name}</div>
+            <p>${opp.description}</p>
+            <div class="meta">
+                <span class="badge source-${opp.source}">
+                    <span class="source-tag">${opp.source}</span>
+                </span>
+                <span class="badge">📍 ${opp.distance} mi</span>
+                ${opp.cause ? `<span class="badge">${getCauseEmoji(opp.cause)} ${opp.cause}</span>` : ''}
+                ${opp.type ? `<span class="badge">${getTypeLabel(opp.type)}</span>` : ''}
+            </div>
+            <a href="${opp.source_url}" target="_blank" rel="noopener noreferrer" class="button">
+                View & Sign Up →
+            </a>
+        </div>
+    `).join('');
+}
+
+// Setup filters
+function setupFilters() {
+    document.getElementById('distance-filter').addEventListener('change', (e) => {
+        document.getElementById('distance-value').textContent = e.target.value + ' mi';
+        renderOpportunities();
+    });
+
+    document.getElementById('cause-filter').addEventListener('change', () => {
+        renderOpportunities();
+    });
+
+    document.getElementById('type-filter').addEventListener('change', () => {
+        renderOpportunities();
+    });
+}
+
+// Helpers
+function getCauseEmoji(cause) {
+    const emojis = {
+        'animals': '🐾',
+        'environment': '🌿',
+        'education': '📚',
+        'food': '🥕',
+        'community': '💙',
+        'elderly': '👴'
+    };
+    return emojis[cause] || '✨';
+}
+
+function getTypeLabel(type) {
+    const labels = {
+        'one-time': '⭐ One-Time',
+        'ongoing': '🔄 Ongoing',
+        'virtual': '💻 Virtual'
+    };
+    return labels[type] || type;
+}
+
+function showError(message) {
+    document.getElementById('error-container').innerHTML = 
+        `<div class="error">⚠️ ${message}</div>`;
+}
+</script>
+
+</body>
+</html>
