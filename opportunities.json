@@ -1,0 +1,86 @@
+{
+  "last_updated": "2024-01-15T09:00:00",
+  "total_opportunities": 8,
+  "opportunities": [
+    {
+      "title": "Dog Walking at Animal Shelter",
+      "org_name": "Paws & Care Animal Shelter",
+      "description": "Help rescue dogs get exercise and socialization. Flexible hours, all skill levels welcome.",
+      "source_url": "https://www.volunteermatch.org/search/opp/...",
+      "source": "volunteermatch",
+      "cause": "animals",
+      "type": "ongoing",
+      "distance": 2.3
+    },
+    {
+      "title": "Trail Cleanup at Riverside Park",
+      "org_name": "Springfield Parks & Recreation",
+      "description": "Join us for a 4-hour trail cleanup on Saturday mornings. All tools and supplies provided.",
+      "source_url": "https://www.springfield.gov/parks/volunteer",
+      "source": "local",
+      "cause": "environment",
+      "type": "one-time",
+      "distance": 4.1
+    },
+    {
+      "title": "Tech Tutor for Seniors",
+      "org_name": "Digital Inclusion Initiative",
+      "description": "Teach seniors how to use email, video calls, and social media. Virtual, 1-2 hours per week.",
+      "source_url": "https://www.volunteermatch.org/search/opp/...",
+      "source": "volunteermatch",
+      "cause": "education",
+      "type": "virtual",
+      "distance": 3.5
+    },
+    {
+      "title": "Library Reading Buddy Program",
+      "org_name": "Springfield Public Library",
+      "description": "Read with elementary kids once a week. Help build confidence and love of reading.",
+      "source_url": "https://www.springfield-library.org/volunteer",
+      "source": "local",
+      "cause": "education",
+      "type": "ongoing",
+      "distance": 1.8
+    },
+    {
+      "title": "Food Bank Sorting",
+      "org_name": "City Harvest Food Bank",
+      "description": "Sort and pack donations for families in need. 3-hour shifts available, groups welcome!",
+      "source_url": "https://www.volunteermatch.org/search/opp/...",
+      "source": "volunteermatch",
+      "cause": "food",
+      "type": "one-time",
+      "distance": 5.2
+    },
+    {
+      "title": "Senior Companion Program",
+      "org_name": "Community Care Services",
+      "description": "Visit with seniors, play games, help with activities. Makes a huge difference in their lives.",
+      "source_url": "https://www.volunteermatch.org/search/opp/...",
+      "source": "volunteermatch",
+      "cause": "elderly",
+      "type": "ongoing",
+      "distance": 6.0
+    },
+    {
+      "title": "Beach Cleanup & Ocean Advocacy",
+      "org_name": "Ocean Guardians",
+      "description": "Collect trash and learn about marine conservation. Virtual workshop + in-person cleanup.",
+      "source_url": "https://www.meetup.com/events/...",
+      "source": "meetup",
+      "cause": "environment",
+      "type": "one-time",
+      "distance": 8.5
+    },
+    {
+      "title": "Youth After-School Mentor",
+      "org_name": "Big Brothers Big Sisters",
+      "description": "Mentor a young person weekly. Help them with homework, build confidence, be a friend.",
+      "source_url": "https://www.volunteermatch.org/search/opp/...",
+      "source": "volunteermatch",
+      "cause": "community",
+      "type": "ongoing",
+      "distance": 3.2
+    }
+  ]
+}
