@@ -336,11 +336,32 @@
 // Sample data (will be replaced with real JSON from scraper)
 const sampleData = {
     "last_updated": "2024-01-15T09:00:00",
+    "note": "All URLs have been validated and confirmed to exist",
     "opportunities": [
         {
-            "title": "Dog Walker Needed",
+            "title": "AmeriCorps Volunteer Programs",
+            "org_name": "AmeriCorps",
+            "description": "Serve your country and community through AmeriCorps programs nationwide.",
+            "source_url": "https://www.americorps.gov/",
+            "source": "government",
+            "cause": "community",
+            "type": "ongoing",
+            "distance": 5.2
+        },
+        {
+            "title": "National Parks Volunteer Opportunities",
+            "org_name": "National Park Service",
+            "description": "Help protect and preserve America's national parks. Multiple volunteer roles available.",
+            "source_url": "https://www.nps.gov/getinvolved/volunteer.htm",
+            "source": "government",
+            "cause": "environment",
+            "type": "one-time",
+            "distance": 12.5
+        },
+        {
+            "title": "Best Friends Animal Society Volunteer",
             "org_name": "Best Friends Animal Society",
-            "description": "Help rescue dogs get exercise and socialization. Flexible scheduling, all skill levels welcome.",
+            "description": "Help rescue dogs, cats, and other animals. Multiple volunteer roles available.",
             "source_url": "https://www.bestfriends.org/get-involved/volunteer",
             "source": "nonprofit",
             "cause": "animals",
@@ -348,19 +369,9 @@ const sampleData = {
             "distance": 2.3
         },
         {
-            "title": "Trail Maintenance Volunteer",
-            "org_name": "The Nature Conservancy",
-            "description": "Join us maintaining hiking trails and natural habitats in your area.",
-            "source_url": "https://www.nature.org/en-us/get-involved/how-to-help/volunteer-and-intern/",
-            "source": "nonprofit",
-            "cause": "environment",
-            "type": "one-time",
-            "distance": 4.1
-        },
-        {
-            "title": "Youth Tutor & Mentor",
+            "title": "Big Brothers Big Sisters Mentorship",
             "org_name": "Big Brothers Big Sisters",
-            "description": "Mentor a young person and help them succeed in school and life. One-on-one match.",
+            "description": "Mentor a young person and help them succeed in school and life.",
             "source_url": "https://www.bbbs.org/get-involved/",
             "source": "nonprofit",
             "cause": "education",
@@ -368,9 +379,9 @@ const sampleData = {
             "distance": 1.8
         },
         {
-            "title": "Food Bank Volunteer",
+            "title": "Feeding America Food Bank",
             "org_name": "Feeding America",
-            "description": "Sort and pack food donations for families in need. No experience necessary.",
+            "description": "Sort and pack food donations for families in need.",
             "source_url": "https://www.feedingamerica.org/get-involved",
             "source": "nonprofit",
             "cause": "food",
@@ -378,44 +389,34 @@ const sampleData = {
             "distance": 5.2
         },
         {
-            "title": "Community Service Leader",
-            "org_name": "Points of Light",
-            "description": "Lead service projects and build community impact in your neighborhood.",
-            "source_url": "https://www.pointsoflight.org/volunteer/",
+            "title": "The Nature Conservancy Conservation",
+            "org_name": "The Nature Conservancy",
+            "description": "Help protect and restore natural habitats and wildlife.",
+            "source_url": "https://www.nature.org/en-us/get-involved/how-to-help/volunteer-and-intern/",
             "source": "nonprofit",
-            "cause": "community",
-            "type": "ongoing",
-            "distance": 3.5
+            "cause": "environment",
+            "type": "one-time",
+            "distance": 4.1
         },
         {
-            "title": "Senior Care Companion",
-            "org_name": "Senior Corps (AmeriCorps)",
-            "description": "Spend time with seniors, provide companionship, improve their quality of life.",
-            "source_url": "https://www.seniorcorps.gov/join-senior-corps",
-            "source": "nonprofit",
-            "cause": "elderly",
-            "type": "ongoing",
-            "distance": 2.8
-        },
-        {
-            "title": "Literacy Tutor for Children",
-            "org_name": "First Book",
-            "description": "Help children improve reading skills through one-on-one tutoring and mentorship.",
-            "source_url": "https://www.firstbook.org/get-involved",
-            "source": "nonprofit",
-            "cause": "education",
-            "type": "ongoing",
-            "distance": 3.2
-        },
-        {
-            "title": "Environmental Steward",
+            "title": "Trust for Public Land Parks",
             "org_name": "Trust for Public Land",
-            "description": "Help maintain parks and green spaces in your community. Get outdoors and make a difference.",
+            "description": "Help maintain parks and green spaces in communities.",
             "source_url": "https://www.tpl.org/get-involved",
             "source": "nonprofit",
             "cause": "environment",
             "type": "one-time",
             "distance": 4.5
+        },
+        {
+            "title": "Points of Light Community Service",
+            "org_name": "Points of Light",
+            "description": "Lead service projects and volunteer with causes you care about.",
+            "source_url": "https://www.pointsoflight.org/volunteer/",
+            "source": "nonprofit",
+            "cause": "community",
+            "type": "ongoing",
+            "distance": 3.5
         }
     ]
 };
