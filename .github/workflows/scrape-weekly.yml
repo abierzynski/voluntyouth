@@ -1,0 +1,31 @@
+name: Scrape opportunities weekly
+
+on:
+  schedule:
+    - cron: '0 9 * * 0'  # Every Sunday at 9 AM UTC
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install requests feedparser beautifulsoup4
+      
+      - name: Run scraper
+        run: python scraper.py
+      
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add opportunities.json
+          git commit -m "Update opportunities $(date +%Y-%m-%d)" || echo "No changes"
+          git push
